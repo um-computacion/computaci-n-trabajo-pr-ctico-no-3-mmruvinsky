@@ -5,7 +5,7 @@ from src.exceptions import (
 )
 from unittest.mock import patch
 
-class TestCalculoNumeros(unittest.TestCase):
+class TestCalculoNumerosValidos(unittest.TestCase):
 
     @patch(  # este patch controla lo que hace el input
         'builtins.input',
@@ -39,6 +39,8 @@ class TestCalculoNumeros(unittest.TestCase):
         numero = ingrese_numero()
         self.assertEqual(numero, 1000000)
 
+class TestCalculoNumerosInvalidos(unittest.TestCase):
+
     @patch(  # este patch controla lo que hace el input
         'builtins.input',
         return_value='-100'
@@ -46,6 +48,28 @@ class TestCalculoNumeros(unittest.TestCase):
     def test_ingreso_negativo(self, patch_input):
         with self.assertRaises(NumeroDebeSerPositivo):
             ingrese_numero()
+
+    @patch (
+            'builtins.input',
+            return_value='-1'
+    )
+    def test_ingreso_negativo_2(self, patch_input):
+        with self.assertRaises(NumeroDebeSerPositivo):
+            ingrese_numero()
+
+    @patch ( 
+            'builtins.input',
+            return_value='-1000'
+    )
+    def test_ingreso_negativo_3(self, patch_input):
+        with self.assertRaises(NumeroDebeSerPositivo):
+            ingrese_numero()
+
+
+
+
+
+
 
     @patch(  # este patch controla lo que hace el input
         'builtins.input',
