@@ -1,8 +1,5 @@
 import unittest
-from src.exceptions import (
-    ingrese_numero,
-    NumeroDebeSerPositivo,
-)
+from src.exceptions import (ingrese_numero, NumeroDebeSerPositivo)
 from unittest.mock import patch
 
 class TestCalculoNumerosValidos(unittest.TestCase):
@@ -65,17 +62,53 @@ class TestCalculoNumerosInvalidos(unittest.TestCase):
         with self.assertRaises(NumeroDebeSerPositivo):
             ingrese_numero()
 
-
-
-
-
-
+class TestCalculoNumerosLetras(unittest.TestCase):
 
     @patch(  # este patch controla lo que hace el input
         'builtins.input',
         return_value='AAA'
     )
     def test_ingreso_letras(self, patch_input):
+        with self.assertRaises(ValueError):
+            ingrese_numero()
+
+    @patch ( 
+            'builtins.input',
+            return_value='abc'    
+    )
+    def test_ingreso_letras_2(self, patch_input):
+        with self.assertRaises(ValueError):
+            ingrese_numero()
+
+    @patch (
+            'builtins.input',
+            return_value='123abc'
+    )
+    def test_ingreso_letras_3(self, patch_input):
+        with self.assertRaises(ValueError):
+            ingrese_numero()
+
+    @patch (
+            'builtins.input',
+            return_value='abejorro123'
+    )
+    def test_ingreso_letras_4(self, patch_input):
+        with self.assertRaises(ValueError):
+            ingrese_numero()
+
+    @patch (
+            'builtins.input',
+            return_value='Este año se aprueba computación'
+    )
+    def test_ingreso_letras_5(self, patch_input):
+        with self.assertRaises(ValueError):
+            ingrese_numero()
+
+    @patch (
+            'builtins.input',
+            return_value='@@@@@'
+    )
+    def test_ingreso_simbolos(self, patch_input):
         with self.assertRaises(ValueError):
             ingrese_numero()
 
