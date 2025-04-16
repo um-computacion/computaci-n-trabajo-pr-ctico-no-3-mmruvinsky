@@ -1,9 +1,12 @@
 class NumeroDebeSerPositivo(Exception):
     pass
 
+
 def ingrese_numero():
 
     entrada = input("Ingrese un número: ")
+    if not entrada.strip():  # Verifica si la entrada está vacía (incluye solo espacios)
+        raise ValueError("La entrada no puede estar vacía")
     try:
         numero = int(entrada)
         if numero < 0:
